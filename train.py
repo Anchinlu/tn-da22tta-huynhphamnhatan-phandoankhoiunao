@@ -49,6 +49,9 @@ if __name__ == "__main__":
         model = TransUNet(in_channels=3, out_channels=1, img_size=args.img_size).to(device)
     else:
         raise ValueError("Invalid model name")
+    if args.resume and os.path.exists(args.resume):
+        print(f"Loading checkpoint: {args.resume}")
+        model.load_state_dict(torch.load(args.resume, map_location=device, weights_only=True))
         
     criterion = DiceBCELoss()
     optimizer = optim.AdamW(model.parameters(), lr=args.lr)
