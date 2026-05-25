@@ -7,7 +7,7 @@ import numpy as np
 import torchvision.transforms.functional as TF
 
 class BrainTumorDataset(Dataset):
-    def __init__(self, dataset_dir, image_size=256, transform=None):
+    def __init__(self, dataset_dir, image_size=256, transform=None, patient_list=None):
         self.dataset_dir = dataset_dir
         self.image_size = image_size
         self.transform = transform
@@ -15,7 +15,12 @@ class BrainTumorDataset(Dataset):
         self.image_paths = []
         self.mask_paths = []
         
-        for patient_dir in os.listdir(dataset_dir):
+        if patient_list is not None:
+            patients = patient_list
+        else:
+            patients = [d for d in os.listdir(dataset_dir) if os.path.isdir(os.path.join(dataset_dir, d))]
+            
+        for patient_dir in patients:
             patient_path = os.path.join(dataset_dir, patient_dir)
             
             if os.path.isdir(patient_path):
