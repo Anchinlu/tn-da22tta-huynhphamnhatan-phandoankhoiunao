@@ -1,12 +1,11 @@
-TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆCỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
-KHOA CÔNG NGHỆ THÔNG TINĐộc lập – Tự do – Hạnh phúc
-
+TRƯỜNG KỸ THUẬT VÀ CÔNG NGHỆ	CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+	KHOA CÔNG NGHỆ THÔNG TIN	Độc lập – Tự do – Hạnh phúc
 ĐỀ CƯƠNG CHI TIẾT
 ĐỒ ÁN TỐT NGHIỆP NGÀNH CÔNG NGHỆ THÔNG TIN
-Họ tên sinh viên: Huỳnh Phạm Nhật An MSSV: 110122027
-Lớp: DA22TTA Khóa: 2022
-Tên đề tài: Phân đoạn khối u não dựa trên cải tiến Unet
-
+Họ tên sinh viên: Huỳnh Phạm Nhật An	 MSSV: 110122027	
+Lớp: DA22TTA	 Khóa: 2022	
+Tên đề tài: Phân đoạn khối u não dựa trên cải tiến Unet	
+	
 Mục tiêu của đề tài:
 Nghiên cứu và xây dựng mô hình phân đoạn u não có độ chính xác cao bằng cách kết hợp khả năng trích xuất đặc trưng cục bộ của mạng nơ-ron tích chập (CNN - U-Net) và khả năng nắm bắt ngữ cảnh không gian toàn cục của Vision Transformer
 Cải thiện độ chính xác so với mô hình U-Net truyền thống trên tập dữ liệu ảnh y tế.
@@ -19,7 +18,7 @@ Tiến hành huấn luyện 2 mô hình trên môi trường máy chủ Kaggle, 
 Đánh giá, so sánh hiệu năng của mô hình đề xuất với U-Net gốc dựa trên các độ đo y tế.
 Phương pháp thực hiện:
 Phương pháp nghiên cứu lý thuyết:
-Tổng hợp, phân tích các tài liệu học thuật, các bài báo khoa học uy tín (IEEE, arXiv, MICCAI) về mạng nơ-ron tích chập và Transformer ứng dụng trong y tế
+	Tổng hợp, phân tích các tài liệu học thuật, các bài báo khoa học uy tín (IEEE, arXiv, MICCAI) về mạng nơ-ron tích chập và Transformer ứng dụng trong y tế
 Phương pháp thực nghiệm ứng dụng:
 - Ngôn ngữ lập trình: Python.
 - Nền tảng thư viện: PyTorch , NumPy, OpenCV.
@@ -44,46 +43,15 @@ Mã nguồn GitHub: https://github.com/HUCAOFIGHTING/SWIN-UNET
 UNETR: Transformers for 3D Medical Image Segmentation
 Link bài báo : https://www.computer.org/csdl/proceedings-article/wacv/2022/091500b748/1B13Ye6YRc4
 Kế hoạch thực hiện đề tài
-Tuần
-Từ ngày - đến ngày
-Công việc thực hiện
-Ghi chú
-Tuần 1
-20/04 - 26/04
-Nghiên cứu lý thuyết: Tìm hiểu đặc tính ảnh MRI u não, kiến trúc U-Net, Vision Transformer. Viết bản thảo Chương 1 & Chương 2.
-
-Tuần 2
-27/04 - 03/05
-Tiền xử lý dữ liệu: Tải bộ dữ liệu BraTS, xử lý định dạng ảnh y tế, chuẩn hóa pixel, tăng cường dữ liệu và chia tập train/val/test.
-
-Tuần 3
-04/05 - 10/05
-Xây dựng mô hình cơ sở: Code kiến trúc U-Net gốc bằng PyTorch. Viết phần đầu của Chương 3.
-
-Tuần 4
-11/05 - 17/05
-Thiết kế mô hình đề xuất: Lập trình U-Net cải tiến (tích hợp Transformer vào phần mã hóa). Hoàn thiện bản thảo Chương 3.
-
-Tuần 5
-18/05 - 24/05
-Huấn luyện mô hình: Huấn luyện cả 2 mô hình (U-Net gốc và cải tiến) trên Kaggle. Tinh chỉnh các siêu tham số 
-
-Tuần 6
-25/05 - 31/05
-Đánh giá & So sánh: Trích xuất kết quả, tính toán các độ đo y tế, đối chiếu mặt nạ thực tế. Trực quan hóa dữ liệu (vẽ biểu đồ).
-
-Tuần 7
-01/06 - 07/06
-Hoàn thiện báo cáo (Phần 1): Viết Chương 4 (Thực nghiệm & Đánh giá) dựa trên số liệu thu được, và Chương 5 (Kết luận & Hướng phát triển).
-
-Tuần 8
-08/06 - 14/06
-Chỉnh sửa & Gửi Giảng viên: Căn chỉnh định dạng Word, kiểm tra lỗi chính tả. Gửi bản thảo cho Giảng viên hướng dẫn để xin nhận xét.
-
-Tuần 9
-Tuần 9
-Hoàn thiện cuối cùng: Chỉnh sửa theo góp ý của Giảng viên. Bắt đầu chuẩn bị slide thuyết trình bảo vệ đồ án.
-
-
-Vĩnh Long, ngày     tháng    năm 2026
-GIẢNG VIÊN HƯỚNG DẪNSINH VIÊN THỰC HIỆN
+	Vĩnh Long, ngày     tháng    năm 2026
+	GIẢNG VIÊN HƯỚNG DẪN	SINH VIÊN THỰC HIỆN
+Tuần | Từ ngày - đến ngày | Công việc thực hiện | Ghi chú
+Tuần 1 | 20/04 - 26/04 | Nghiên cứu lý thuyết: Tìm hiểu đặc tính ảnh MRI u não, kiến trúc U-Net, Vision Transformer. Viết bản thảo Chương 1 & Chương 2. | 
+Tuần 2 | 27/04 - 03/05 | Tiền xử lý dữ liệu: Tải bộ dữ liệu BraTS, xử lý định dạng ảnh y tế, chuẩn hóa pixel, tăng cường dữ liệu và chia tập train/val/test. | 
+Tuần 3 | 04/05 - 10/05 | Xây dựng mô hình cơ sở: Code kiến trúc U-Net gốc bằng PyTorch. Viết phần đầu của Chương 3. | 
+Tuần 4 | 11/05 - 17/05 | Thiết kế mô hình đề xuất: Lập trình U-Net cải tiến (tích hợp Transformer vào phần mã hóa). Hoàn thiện bản thảo Chương 3. | 
+Tuần 5 | 18/05 - 24/05 | Huấn luyện mô hình: Huấn luyện cả 2 mô hình (U-Net gốc và cải tiến) trên Kaggle. Tinh chỉnh các siêu tham số | 
+Tuần 6 | 25/05 - 31/05 | Đánh giá & So sánh: Trích xuất kết quả, tính toán các độ đo y tế, đối chiếu mặt nạ thực tế. Trực quan hóa dữ liệu (vẽ biểu đồ). | 
+Tuần 7 | 01/06 - 07/06 | Hoàn thiện báo cáo (Phần 1): Viết Chương 4 (Thực nghiệm & Đánh giá) dựa trên số liệu thu được, và Chương 5 (Kết luận & Hướng phát triển). | 
+Tuần 8 | 08/06 - 14/06 | Chỉnh sửa & Gửi Giảng viên: Căn chỉnh định dạng Word, kiểm tra lỗi chính tả. Gửi bản thảo cho Giảng viên hướng dẫn để xin nhận xét. | 
+Tuần 9 | Tuần 9 | Hoàn thiện cuối cùng: Chỉnh sửa theo góp ý của Giảng viên. Bắt đầu chuẩn bị slide thuyết trình bảo vệ đồ án. | 

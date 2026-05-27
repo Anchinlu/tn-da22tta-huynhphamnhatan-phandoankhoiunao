@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 class DiceBCELoss(nn.Module):
     """
@@ -29,6 +30,43 @@ class DiceBCELoss(nn.Module):
         dice_loss = 1 - (2. * intersection + smooth) / (probs_flat.sum() + targets_flat.sum() + smooth)
 
         return bce_loss + dice_loss
+
+class FocalTverskyLoss(nn.Module):
+    """
+    Focal Tversky Loss: Giúp cân bằng linh hoạt giữa việc phạt False Positive (khoanh lố) 
+    và False Negative (đoán hụt) thông qua alpha và beta.
+    Đồng thời dùng Gamma (Focal) để ép mô hình tập trung vào các ranh giới khó đoán.
+    
+    alpha: Trọng số phạt cho False Positive (khoanh lố ra ngoài).
+    beta: Trọng số phạt cho False Negative (bỏ sót khối u).
+    gamma: Trọng số focal (càng lớn càng tập trung vào ca khó).
+    """
+    def __init__(self, alpha=0.3, beta=0.7, gamma=4.0 / 3.0, smooth=1e-5):
+        super(FocalTverskyLoss, self).__init__()
+        self.alpha = alpha
+        self.beta = beta
+        self.gamma = gamma
+        self.smooth = smooth
+
+    def forward(self, inputs, targets):
+        # Áp dụng sigmoid để đưa logit về xác suất (0, 1)
+        probs = torch.sigmoid(inputs)
+        
+        # Làm phẳng tensor
+        probs_flat = probs.view(-1)
+        targets_flat = targets.view(-1)
+        
+        # Tính toán True Positives, False Positives, False Negatives
+        TP = (probs_flat * targets_flat).sum()
+        FP = ((1 - targets_flat) * probs_flat).sum()
+        FN = (targets_flat * (1 - probs_flat)).sum()
+        
+        # Tversky Index
+        tversky_index = (TP + self.smooth) / (TP + self.alpha * FP + self.beta * FN + self.smooth)
+        
+        # Focal Tversky Loss
+        focal_tversky = (1 - tversky_index) ** self.gamma
+        return focal_tversky
 
 
 def calculate_metrics(preds, targets, smooth=1e-5):

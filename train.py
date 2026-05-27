@@ -15,7 +15,7 @@ if sys.platform.startswith('win'):
 
 from configs.config import get_args
 from data.dataset import BrainTumorDataset
-from utils.utils import DiceBCELoss
+from utils.utils import FocalTverskyLoss, DiceBCELoss
 from trainer import trainer
 
 from networks.unet import UNet
@@ -59,6 +59,7 @@ if __name__ == "__main__":
         A.VerticalFlip(p=0.5),
         A.RandomRotate90(p=0.5),
         A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.1, rotate_limit=45, p=0.5),
+        A.ElasticTransform(alpha=120, sigma=120 * 0.05, p=0.3),
         A.RandomBrightnessContrast(p=0.2),
     ])
     
@@ -81,7 +82,12 @@ if __name__ == "__main__":
         print(f"Loading checkpoint: {args.resume}")
         model.load_state_dict(torch.load(args.resume, map_location=device, weights_only=True))
         
-    criterion = DiceBCELoss(pos_weight=args.pos_weight)
+    if args.model == 'transunet':
+        print("Using FocalTverskyLoss for TransUNet V2")
+        criterion = FocalTverskyLoss(alpha=0.3, beta=0.7, gamma=4.0/3.0)
+    else:
+        print("Using DiceBCELoss for U-Net")
+        criterion = DiceBCELoss(pos_weight=args.pos_weight)
     optimizer = optim.AdamW(model.parameters(), lr=args.lr)
     
     # Cấu hình Learning Rate Scheduler
