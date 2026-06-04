@@ -15,7 +15,7 @@ if sys.platform.startswith('win'):
 
 from configs.config import get_args
 from data.dataset import BrainTumorDataset
-from utils.utils import FocalTverskyLoss, DiceBCELoss
+from utils.utils import FocalTverskyLoss, DiceBCELoss, HybridLoss
 from trainer import trainer
 
 from networks.unet import UNet
@@ -83,8 +83,8 @@ if __name__ == "__main__":
         model.load_state_dict(torch.load(args.resume, map_location=device, weights_only=True))
         
     if args.model == 'transunet':
-        print("Using FocalTverskyLoss for TransUNet V2")
-        criterion = FocalTverskyLoss(alpha=0.3, beta=0.7, gamma=4.0/3.0)
+        print("Using HybridLoss for TransUNet V3")
+        criterion = HybridLoss(pos_weight=args.pos_weight, alpha=0.3, beta=0.7, gamma=4.0/3.0)
     else:
         print("Using DiceBCELoss for U-Net")
         criterion = DiceBCELoss(pos_weight=args.pos_weight)

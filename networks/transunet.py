@@ -107,6 +107,10 @@ class TransUNet(nn.Module):
         
         self.outc = nn.Conv2d(64, out_channels, kernel_size=1)
         
+        # Deep Supervision outputs
+        self.ds_out1 = nn.Conv2d(256, out_channels, kernel_size=1)
+        self.ds_out2 = nn.Conv2d(128, out_channels, kernel_size=1)
+        
     def forward(self, x):
         x1 = self.inc(x)
         x2 = self.down1(x1)
@@ -120,6 +124,9 @@ class TransUNet(nn.Module):
         H = W = int(N ** 0.5)
         trans_out = trans_out.transpose(1, 2).contiguous().view(B, C, H, W)
         trans_out = self.conv_trans(trans_out)
+        
+        # Residual Connection over Transformer
+        trans_out = trans_out + x4
         
         up1 = self.up1(trans_out)
         x3_att = self.ag1(g=up1, x=x3)
@@ -137,4 +144,11 @@ class TransUNet(nn.Module):
         dec3 = self.conv_up3(cat3)
         
         logits = self.outc(dec3)
+        
+        if self.training:
+            # Deep Supervision: Interpolate intermediate outputs to match target size
+            ds1 = F.interpolate(self.ds_out1(dec1), size=x.shape[2:], mode='bilinear', align_corners=False)
+            ds2 = F.interpolate(self.ds_out2(dec2), size=x.shape[2:], mode='bilinear', align_corners=False)
+            return logits, ds1, ds2
+            
         return logits
