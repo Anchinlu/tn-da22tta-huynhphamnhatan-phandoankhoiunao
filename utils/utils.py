@@ -68,19 +68,6 @@ class FocalTverskyLoss(nn.Module):
         focal_tversky = (1 - tversky_index) ** self.gamma
         return focal_tversky
 
-class HybridLoss(nn.Module):
-    """
-    Kết hợp sức mạnh cục bộ của DiceBCE và khả năng bắt ngữ cảnh của FocalTversky.
-    Dành riêng cho TransUNet V3.
-    """
-    def __init__(self, pos_weight=15.0, alpha=0.3, beta=0.7, gamma=4.0/3.0):
-        super(HybridLoss, self).__init__()
-        self.dice_bce = DiceBCELoss(pos_weight=pos_weight)
-        self.focal_tversky = FocalTverskyLoss(alpha=alpha, beta=beta, gamma=gamma)
-
-    def forward(self, inputs, targets):
-        return 0.5 * self.dice_bce(inputs, targets) + 0.5 * self.focal_tversky(inputs, targets)
-
 
 def calculate_metrics(preds, targets, smooth=1e-5):
     preds = torch.sigmoid(preds)

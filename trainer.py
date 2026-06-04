@@ -26,17 +26,7 @@ def trainer(args, model, train_loader, val_loader, criterion, optimizer, device,
             masks = masks.to(device)
             
             preds = model(images)
-            
-            # Xử lý Deep Supervision nếu model trả về tuple (ví dụ: logits, ds1, ds2)
-            if isinstance(preds, tuple):
-                main_pred = preds[0]
-                # Tính loss cho main output và các auxiliary outputs với trọng số giảm dần
-                loss = criterion(main_pred, masks)
-                loss += 0.3 * criterion(preds[1], masks)
-                loss += 0.2 * criterion(preds[2], masks)
-                preds = main_pred  # Dùng main_pred để tính metrics
-            else:
-                loss = criterion(preds, masks)
+            loss = criterion(preds, masks)
             
             optimizer.zero_grad()
             loss.backward()
