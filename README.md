@@ -1,61 +1,101 @@
-# 🧠 ĐỒ ÁN TỐT NGHIỆP: PHÂN ĐOẠN KHỐI U NÃO VỚI MÔ HÌNH TRANSUNET TÙY BIẾN
+**Ngôn ngữ:** Tiếng Việt | [English](README.en.md) *(Đang cập nhật)*
 
-Dự án này là kết quả nghiên cứu và thực nghiệm nhằm giải quyết bài toán phân đoạn khối u não (Brain Tumor Segmentation) trên ảnh cộng hưởng từ (MRI). Dự án tập trung khắc phục những nhược điểm cố hữu của mạng U-Net truyền thống bằng cách kết hợp sức mạnh của Vision Transformer và cơ chế Attention.
+![Demo Image](src/archive/demo_favorites/003.png)
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/-PyTorch-EE4C2C?logo=pytorch&logoColor=white)
+![CustomTkinter](https://img.shields.io/badge/-CustomTkinter-1E1E1E?logo=python&logoColor=white)
+
+> [!WARNING]
+> **Khuyến nghị phần cứng:** Quá trình huấn luyện mô hình đòi hỏi lượng tài nguyên tính toán lớn. Nên chạy mô hình trên các máy có Card đồ họa rời (NVIDIA) có hỗ trợ CUDA. Để chạy Giao diện Demo, CPU hoặc GPU thông thường đều có thể đáp ứng được.
+
+**3.929 ảnh MRI** | **Tích hợp Attention Gate** | **Vision Transformer Bottleneck** | **Dice Score: 0.8588**
 
 ---
 
-## 1. MỤC TIÊU ĐỒ ÁN
-- **Bài toán:** Phân đoạn ảnh y tế (Medical Image Segmentation). Mục tiêu là tự động khoanh vùng chính xác vị trí và ranh giới của khối u não trên các lát cắt MRI.
-- **Giá trị thực tiễn:** Hệ thống đóng vai trò như một trợ lý chẩn đoán thứ hai (Second Opinion), hỗ trợ các bác sĩ chẩn đoán hình ảnh khoanh vùng nhanh chóng các khu vực nghi ngờ, tiết kiệm thời gian phân tích thủ công và giảm thiểu rủi ro bỏ sót các khối u ở giai đoạn mầm mống.
+<div align="center">
 
-## 2. KIẾN TRÚC MÔ HÌNH & TẬP DỮ LIỆU
-- **Bộ dữ liệu:** Kaggle 3M Lower Grade Glioma (LGG) Segmentation Dataset (110 bệnh nhân, 3.929 cặp ảnh MRI đa kênh).
-- **Mô hình nền tảng (Baseline):** U-Net (2015).
-- **Kiến trúc đề xuất (TransUNet V2):** 
-  - Khắc phục điểm mù cục bộ bằng cách thay thế toàn bộ khối CNN ở đáy mạng (Bottleneck) bằng kiến trúc **Vision Transformer (ViT)** để lấy thông tin toàn cục (Global Context).
-  - Khắc phục nhiễu truyền dẫn bằng cách tích hợp **Cơ chế Cổng chú ý (Attention Gate)** vào các luồng kết nối tắt (Skip Connections).
-  - Xử lý mất cân bằng lớp (Class Imbalance) bằng hàm mất mát **DiceBCELoss** kết hợp trọng số `pos_weight`.
+**HỆ THỐNG TRỢ LÝ CHẨN ĐOÁN THỨ HAI (SECOND OPINION) CHO BÁC SĨ HÌNH ẢNH**
 
-## 3. CÁC PHẦN MỀM CẦN THIẾT ĐỂ TRIỂN KHAI (PREREQUISITES)
-Để chạy được mã nguồn của đồ án, máy tính cần cài đặt sẵn các phần mềm và thư viện sau:
-- **Python:** Phiên bản 3.9 hoặc mới hơn.
-- **Git:** Để clone mã nguồn về máy.
-- **PyTorch:** Framework Deep Learning chính (Khuyến nghị cài đặt bản có hỗ trợ CUDA/GPU để tăng tốc độ xử lý).
-- **Các thư viện Python phụ trợ:** `numpy`, `matplotlib`, `pillow`, `customtkinter` (cho giao diện UI), `scikit-learn`.
+Mô hình không sử dụng các bản nháp có sẵn mà tiến hành thiết kế và tinh chỉnh lại toàn bộ đáy mạng bằng kiến trúc ViT, kết hợp cơ chế Attention Gate ở các luồng giải mã nhằm triệt tiêu điểm mù cục bộ và tăng độ chính xác trong y tế lâm sàng.
 
-*(Có thể sử dụng Anaconda hoặc Virtualenv để tạo môi trường ảo độc lập cho dự án)*
+</div>
 
-## 4. CÁCH THỨC CHẠY CHƯƠNG TRÌNH
+---
 
-### Bước 1: Tải mã nguồn về máy
+## 🚀 Tính Năng Mới (Mô Hình Đề Xuất)
+
+- **Khắc phục điểm mù (Vision Transformer Bottleneck)**: Thay thế khối CNN đáy mạng bằng ViT, cho phép mô hình nhìn nhận toàn cục cấu trúc não bộ, triệt tiêu phân đoạn nhầm vân não thành khối u.
+- **Chặn nhiễu truyền dẫn (Attention Gate)**: Đóng vai trò như màng lọc thông minh, lọc bỏ các thông tin rác (màng não, hộp sọ) trước khi đưa vào luồng giải mã.
+- **Chống mất cân bằng (DiceBCELoss + Pos_Weight)**: Xử lý triệt để hiện tượng mất cân bằng lớp (Class Imbalance) thường gặp trong y tế, ép mô hình phát hiện cả những khối u siêu nhỏ (dưới 1% bức ảnh).
+
+---
+
+## 📖 Hướng Dẫn Nhanh (Quick Start)
+
+Vui lòng tham khảo chi tiết tại **[HƯỚNG DẪN SỬ DỤNG VÀ CHẠY DEMO](docs/HUONG_DAN_SU_DUNG.md)**.
+
+### Yêu Cầu Cài Đặt (Prerequisites)
+- Python 3.9+
+- Khuyến nghị card đồ họa NVIDIA (CUDA 11.8+)
+
+### Bước 1: Cài đặt thư viện
+
 ```bash
+# Clone mã nguồn
 git clone https://github.com/Anchinlu/Unet_Transformer.git
 cd Unet_Transformer/src
-```
 
-### Bước 2: Cài đặt thư viện
-```bash
+# Cài đặt thư viện
 pip install torch torchvision
 pip install numpy matplotlib pillow customtkinter scikit-learn
 ```
 
-### Bước 3: Chuẩn bị dữ liệu và Trọng số (Weights)
-- Giải nén bộ dữ liệu Kaggle LGG vào thư mục `src/archive/`.
-- Đảm bảo các file trọng số của mô hình (`unet_best_model.pth` và `transunet_best_model.pth`) đã được đặt đúng vào các thư mục tương ứng là `src/Unet/` và `src/Transunet/`.
+### Bước 2: Chạy Demo
 
-### Bước 4: Chạy Giao diện Demo (UI)
-Để mở giao diện người dùng trực quan, so sánh kết quả trực tiếp giữa U-Net và mô hình cải tiến:
+Để khởi chạy giao diện GUI so sánh giữa U-Net và TransUNet:
 ```bash
 python demo_app.py
 ```
-*(Giao diện sẽ tự động tải các ảnh kiểm thử từ thư mục `src/archive/demo_favorites` và hiển thị kết quả phân đoạn, điểm số Dice/IoU cũng như Heatmap)*
 
-### Bước 5: Huấn luyện lại mô hình (Training) - Tùy chọn
-Nếu muốn tự huấn luyện lại mô hình từ đầu, sử dụng lệnh:
+### Bước 3: Huấn luyện lại từ đầu (Training)
+
 ```bash
 python train.py
 ```
-*(Cấu hình thông số huấn luyện như số epochs, batch size, learning rate có thể được điều chỉnh trực tiếp bên trong mã nguồn hoặc thư mục `configs`)*
+*(Chi tiết thông số huấn luyện được cấu hình tại `src/configs/config.py`)*
 
 ---
-*Dự án hoàn thành tháng 06/2026.*
+
+## 📂 Cấu Trúc Dự Án (What's Inside)
+
+Toàn bộ hệ thống được chia làm hai phân vùng riêng biệt:
+
+```text
+Unet_Transformer/
+|-- docs/                 # Báo cáo, Slide bảo vệ, Hướng dẫn sử dụng
+|   |-- HUONG_DAN_SU_DUNG.md
+|   |-- BaoCaoTrinhBay_Fix.docx
+|   |-- BaoCaoTrinhBay_Fix.pdf
+|
+|-- src/                  # Toàn bộ mã nguồn dự án (Codebase)
+|   |-- archive/          # Dữ liệu hình ảnh Kaggle gốc và ảnh chạy Demo
+|   |-- configs/          # Các file cấu hình tham số (config.py)
+|   |-- data/             # Tiền xử lý dữ liệu (dataset.py)
+|   |-- networks/         # Định nghĩa kiến trúc (unet.py, transunet.py)
+|   |-- Transunet/        # Trọng số (.pth) và file log huấn luyện của Transunet
+|   |-- Unet/             # Trọng số (.pth) và file log huấn luyện của Unet
+|   |-- demo_app.py       # Ứng dụng Giao diện người dùng
+|   |-- train.py          # Script huấn luyện mô hình chính
+|   |-- utils/            # Các hàm hỗ trợ tính toán Loss và Dice
+|
+|-- README.md             # Tài liệu này
+|-- .gitignore            # Loại trừ bộ nhớ đệm
+```
+
+---
+
+<div align="center">
+<sub>Đồ án tốt nghiệp hoàn thành tháng 06/2026.</sub>
+</div>
