@@ -47,8 +47,8 @@ Bộ dữ liệu MRI sử dụng trong dự án được lấy từ Kaggle: [LGG
 
 ```bash
 # Clone mã nguồn
-git clone https://github.com/Anchinlu/Unet_Transformer.git
-cd Unet_Transformer/src
+git clone https://github.com/Anchinlu/tn-da22tta-huynhphamnhatan-phandoankhoiunao.git
+cd tn-da22tta-huynhphamnhatan-phandoankhoiunao/src
 
 # Cài đặt thư viện
 pip install torch torchvision
@@ -76,8 +76,8 @@ python train.py
 Toàn bộ hệ thống được chia làm hai phân vùng riêng biệt:
 
 ```text
-Unet_Transformer/
-|-- docs/                 # Báo cáo, Slide bảo vệ, Hướng dẫn sử dụng
+tn-da22tta-huynhphamnhatan-phandoankhoiunao/
+|-- docs/                 # Báo cáo, Slide bảo vệ, Poster, Hướng dẫn sử dụng
 |   |-- HUONG_DAN_SU_DUNG.md
 |   |-- BaoCaoTrinhBay_Fix.docx
 |   |-- BaoCaoTrinhBay_Fix.pdf
