@@ -1,4 +1,4 @@
-**Ngôn ngữ:** Tiếng Việt | [English](README.en.md) *(Đang cập nhật)*
+**Ngôn ngữ:** Tiếng Việt *
 
 ![Demo Image](docs/comparison_result.png)
 
