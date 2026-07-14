@@ -37,7 +37,10 @@ Mô hình không sử dụng các bản nháp có sẵn mà tiến hành thiết
 Vui lòng tham khảo chi tiết tại **[HƯỚNG DẪN SỬ DỤNG VÀ CHẠY DEMO](docs/HUONG_DAN_SU_DUNG.md)**.
 
 ### Dữ Liệu (Dataset)
-Bộ dữ liệu MRI sử dụng trong dự án được lấy từ Kaggle: [LGG MRI Segmentation Dataset](https://www.kaggle.com/datasets/mateuszbuda/lgg-mri-segmentation)
+Thay vì tải toàn bộ dataset gốc nặng nề từ Kaggle, bạn có thể tải bản **Demo Dataset** gọn nhẹ (đã được tuyển chọn) tại đây để test nhanh:
+👉 **[Tải Demo Dataset (Google Drive)](https://drive.google.com/file/d/1_3b3xIKiLMhceV-CPqMow5AUCyy8fMGU/view?usp=sharing)**
+
+*Lưu ý: Sau khi tải về, giải nén và đặt toàn bộ thư mục vào đường dẫn `src/archive/demo_data`.*
 
 ### Yêu Cầu Cài Đặt (Prerequisites)
 - Python 3.9+

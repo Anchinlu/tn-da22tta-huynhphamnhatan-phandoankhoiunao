@@ -190,9 +190,9 @@ class DemoApp(ctk.CTk):
 
     def choose_image_file(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        initial_dir = os.path.join(current_dir, "archive", "kaggle_3m")
+        initial_dir = os.path.join(current_dir, "archive", "demo_data")
         if not os.path.exists(initial_dir):
-            initial_dir = os.path.join(current_dir, "archive", "lgg-mri-segmentation", "kaggle_3m")
+            initial_dir = os.path.join(current_dir, "archive", "lgg-mri-segmentation", "demo_data")
             
         file_path = filedialog.askopenfilename(
             title="Chọn ảnh MRI",
