@@ -4,10 +4,7 @@ import torch.nn.functional as F
 from networks.unet import DoubleConv
 
 class AttentionGate(nn.Module):
-    """
-    Attention Gate: Lọc các đặc trưng cục bộ (x) từ Encoder dựa trên thông tin ngữ cảnh (g) từ Decoder.
-    Giúp triệt tiêu các pixel nhiễu (background/vân não mờ) và làm nổi bật vùng có khả năng là khối u.
-    """
+
     def __init__(self, F_g, F_l, F_int):
         super(AttentionGate, self).__init__()
         self.W_g = nn.Sequential(
