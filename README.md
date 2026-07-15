@@ -1,6 +1,6 @@
 **Ngôn ngữ:** Tiếng Việt *
 
-![Demo Image](docs/comparison_result.png)
+![Demo Image](./docs/demo_img.png)
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white)
